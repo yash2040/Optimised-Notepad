@@ -2,6 +2,7 @@ import os
 from tkinter import *
 from tkinter.messagebox import showinfo
 from tkinter.filedialog import askopenfilename,asksaveasfilename
+import HuffmanCoding
 def newFile():
     global file
     root.title("Untitled - Notepad")
@@ -34,18 +35,41 @@ def saveFile():
         else:
             #Save as a new file
             f=open(file,"w")
-            originalText=textArea.get(1.0,END)
+            originalText=textArea.get(1.0,"end-1c")
+            codes=HuffmanCoding.init(originalText)
+
+            tempFileLoc = str(file).split('.')[0] + "secret1" + ".txt"
+            tempFile = open(tempFileLoc, 'w')
+            tempFile.write(str(codes))
+            tempFile.close()
+
+            encryptedText=''
+            for i in originalText:
+                encryptedText=encryptedText+str(codes[i])
             #encryptOriginalText
-            f.write(textArea.get(1.0,END))
+            f.write(encryptedText)
             f.close()
             root.title(os.path.basename(file)+" - Notepad")
             #File Saved
     else:
         # Save the file
         f = open(file, "w")
-        originalText = textArea.get(1.0, END)
+        originalText = textArea.get(1.0, "end-1c")
+
+        codes=HuffmanCoding.init(originalText)
+
+        tempFileLoc=str(file).split('.')[0]+"secret1"+".txt"
+        tempFile = open(tempFileLoc , 'w')
+        tempFile.write(str(codes))
+        tempFile.close()
+
+        encryptedText = ''
+        for i in originalText:
+            encryptedText = encryptedText + str(codes[i])
         # encryptOriginalText
-        f.write(textArea.get(1.0, END))
+        f.write(encryptedText)
+        # encryptOriginalText
+
         f.close()
 
 def quitApp():
