@@ -1,8 +1,11 @@
+import json
 import os
 from tkinter import *
 from tkinter.messagebox import showinfo
 from tkinter.filedialog import askopenfilename,asksaveasfilename
-import HuffmanCoding
+import LZW
+
+
 def newFile():
     global file
     root.title("Untitled - Notepad")
@@ -11,6 +14,7 @@ def newFile():
 
 def openFile():
     global file
+    root.update()
     file=askopenfilename(defaultextension=".txt",filetypes=[("All Files","*.*"),("Text Documents","*.txt")])
     if file=="":
         file=None
@@ -18,10 +22,10 @@ def openFile():
         root.title(os.path.basename(file)+" - Notepad")
         textArea.delete(1.0,END)
         f=open(file,"r")
-        originalText=f.read()
-        #decrypt OriginalText
-
-        textArea.insert(1.0,f.read())
+        encryptedText=f.read()
+        #decode encodedText
+        originalText=LZW.decoder(json.loads(encryptedText))
+        textArea.insert(1.0,originalText)
         f.close()
 
 def saveFile():
@@ -33,43 +37,22 @@ def saveFile():
         if file=="":
             file=None
         else:
-            #Save as a new file
+            # Save as a new file
             f=open(file,"w")
             originalText=textArea.get(1.0,"end-1c")
-            codes=HuffmanCoding.init(originalText)
-
-            tempFileLoc = str(file).split('.')[0] + "secret1" + ".txt"
-            tempFile = open(tempFileLoc, 'w')
-            tempFile.write(str(codes))
-            tempFile.close()
-
-            encryptedText=''
-            for i in originalText:
-                encryptedText=encryptedText+str(codes[i])
-            #encryptOriginalText
-            f.write(encryptedText)
+            # Encode the original Text
+            codes=LZW.encoder(originalText)
+            f.write(str(codes))
             f.close()
             root.title(os.path.basename(file)+" - Notepad")
-            #File Saved
+            # File Saved
     else:
         # Save the file
         f = open(file, "w")
         originalText = textArea.get(1.0, "end-1c")
-
-        codes=HuffmanCoding.init(originalText)
-
-        tempFileLoc=str(file).split('.')[0]+"secret1"+".txt"
-        tempFile = open(tempFileLoc , 'w')
-        tempFile.write(str(codes))
-        tempFile.close()
-
-        encryptedText = ''
-        for i in originalText:
-            encryptedText = encryptedText + str(codes[i])
-        # encryptOriginalText
-        f.write(encryptedText)
-        # encryptOriginalText
-
+        # Encode the original Text
+        codes=LZW.encoder(originalText)
+        f.write(str(codes))
         f.close()
 
 def quitApp():
