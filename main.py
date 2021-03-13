@@ -4,7 +4,7 @@ from tkinter import *
 from tkinter.messagebox import showinfo
 from tkinter.filedialog import askopenfilename,asksaveasfilename
 import LZW
-
+import HuffmanCoding
 
 def newFile():
     global file
@@ -15,18 +15,15 @@ def newFile():
 def openFile():
     global file
     root.update()
-    file=askopenfilename(defaultextension=".txt",filetypes=[("All Files","*.*"),("Text Documents","*.txt")])
+    file=askopenfilename(defaultextension=".txt",filetypes=[("Binary files only","*.bin")])
     if file=="":
         file=None
     else:
         root.title(os.path.basename(file)+" - Notepad")
         textArea.delete(1.0,END)
-        f=open(file,"r")
-        encryptedText=f.read()
-        #decode encodedText
+        encryptedText=HuffmanCoding.decode(file)
         originalText=LZW.decoder(json.loads(encryptedText))
         textArea.insert(1.0,originalText)
-        f.close()
 
 def saveFile():
     global file
@@ -38,22 +35,24 @@ def saveFile():
             file=None
         else:
             # Save as a new file
-            f=open(file,"w")
             originalText=textArea.get(1.0,"end-1c")
-            # Encode the original Text
+            # Encode the original Text by LZW
             codes=LZW.encoder(originalText)
-            f.write(str(codes))
-            f.close()
+            # Encode codes by Huffman
+            fileLocation, file_extension = os.path.splitext(file)
+            HuffmanCoding.encode(str(codes),fileLocation)
+
             root.title(os.path.basename(file)+" - Notepad")
             # File Saved
     else:
         # Save the file
-        f = open(file, "w")
+      
         originalText = textArea.get(1.0, "end-1c")
         # Encode the original Text
         codes=LZW.encoder(originalText)
-        f.write(str(codes))
-        f.close()
+         # Encode codes by Huffman
+        fileLocation, file_extension = os.path.splitext(file)
+        HuffmanCoding.encode(str(codes),fileLocation)
 
 def quitApp():
     root.destroy()
