@@ -21,7 +21,9 @@ def openFile():
     else:
         root.title(os.path.basename(file)+" - Notepad")
         textArea.delete(1.0,END)
+        # decode .bin file by Huffman
         encryptedText=HuffmanCoding.decode(file)
+        
         originalText=LZW.decoder(json.loads(encryptedText))
         textArea.insert(1.0,originalText)
 
@@ -125,5 +127,4 @@ if __name__ == '__main__':
     scrollBar.pack(side=RIGHT,fill=Y)
     scrollBar.config(command=textArea.yview)
     textArea.config(yscrollcommand=scrollBar.set)
-
     root.mainloop()

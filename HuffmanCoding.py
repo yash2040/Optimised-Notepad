@@ -138,7 +138,6 @@ def decode_text(encoded_text,file):
     fileLocation, file_extension = os.path.splitext(file)
     f=open(fileLocation+"Codes.txt",'r')
     codes=f.read()
-    print(codes)
     reverse_mapping=json.loads(codes)
     for bit in encoded_text:
         current_code += bit
@@ -162,5 +161,4 @@ def decode(file):
         f.close()
         encoded_text = remove_padding(bit_string)
         decompressed_text = decode_text(encoded_text,file)
-        print("decoded from huffmann")
         return decompressed_text

@@ -45,4 +45,5 @@ def decoder(output_code):
         dict[count]=dict[old]+c
         count=count+1
         old=n
+    print("decoded")
     return ans
