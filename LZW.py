@@ -19,7 +19,13 @@ def encoder(s):
             p = c
         c = ""
     output_code.append(dict[p])
-    return output_code
+    ans=""
+    for i in range(0,len(output_code)):
+        if i==len(output_code)-1:
+            ans=ans+str(output_code[i])
+        else:
+            ans=ans+str(output_code[i])+' '
+    return ans
 
 def decoder(output_code):
     ans=""

@@ -23,8 +23,8 @@ def openFile():
         textArea.delete(1.0,END)
         # decode .bin file by Huffman
         encryptedText=HuffmanCoding.decode(file)
-        
-        originalText=LZW.decoder(json.loads(encryptedText))
+        encryptedText = [int(i) for i in encryptedText.split()]
+        originalText=LZW.decoder(encryptedText)
         textArea.insert(1.0,originalText)
 
 def saveFile():
@@ -42,7 +42,7 @@ def saveFile():
             codes=LZW.encoder(originalText)
             # Encode codes by Huffman
             fileLocation, file_extension = os.path.splitext(file)
-            HuffmanCoding.encode(str(codes),fileLocation)
+            HuffmanCoding.encode(codes,fileLocation)
 
             root.title(os.path.basename(file)+" - Notepad")
             # File Saved
