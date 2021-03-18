@@ -87,7 +87,7 @@ def encode(originalText,fileLocation):
     f=open(fileLocation+"Codes.txt",'w')
     f.write(json.dumps(reverseDict))
     f.close()
-    print("compressed")
+    print("encoded")
 
 # list containing unused nodes
 global nodes

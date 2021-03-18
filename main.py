@@ -15,7 +15,7 @@ def newFile():
 def openFile():
     global file
     root.update()
-    file=askopenfilename(defaultextension=".txt",filetypes=[("Binary files only","*.bin")])
+    file=askopenfilename(defaultextension=".bin",filetypes=[("Binary files only","*.bin")])
     if file=="":
         file=None
     else:
@@ -30,9 +30,9 @@ def openFile():
 def saveFile():
     global file
     if file==None:
-        file=asksaveasfilename(initialfile="Untitled.txt",
-                               defaultextension=".txt",
-                               filetypes=[("All Files","*.*"),("Text Documents","*.txt")])
+        file=asksaveasfilename(initialfile="Untitled.bin",
+                               defaultextension=".bin",
+                               filetypes=[("Binary files only","*.bin")])
         if file=="":
             file=None
         else:
