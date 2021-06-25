@@ -15,4 +15,4 @@ For random content with no proper meaning, it can achieve compression of about 4
 
 # Limitations
 
-Since the time taken by both of the algorithms is around O(N) for compressing the content, there is efficiency issue for large test files of >=10MB. Tkinter Gui editor also has some permformance issue. 
+Since the time taken by both of the algorithms is around O(N) for compressing the content, there is efficiency issue for large test files of >=10MB. Tkinter Gui editor also has some performance issue. 
