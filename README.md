@@ -1,4 +1,6 @@
-# Optimised-Notepad (Based on research paper https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.301.6716&rep=rep1&type=pdf)
+# Optimised-Notepad 
+(Based on research paper https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.301.6716&rep=rep1&type=pdf)
+
 This is an Optimised Notepad which auto-compresses the text-file when the file is saved. Combination of compression Algorithms (LZW compression and Huffman compression algorithms) are used to compress the text file. It was able to achieve an average compression of about 65%. The best compression was about 80%.
 
 ## Details
